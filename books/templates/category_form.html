@@ -1,0 +1,16 @@
+{% extends 'base_generic.html' %}
+
+{% block content %}
+    <h1>{% if form.instance.pk %}Редактировать категорию{% else %}Добавить новую категорию{% endif %}</h1>
+
+    <form method="post">
+        {% csrf_token %}
+        <div class="form-group">
+            <label for="id_name">{{ form.name.label_tag }}</label>
+            {{ form.name }}
+        </div>
+
+        <button type="submit" class="btn btn-primary">Сохранить</button>
+        <a href="{% url 'category_list' %}" class="btn btn-secondary">Отмена</a>
+    </form>
+{% endblock %}

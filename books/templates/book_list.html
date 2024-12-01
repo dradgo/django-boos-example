@@ -1,0 +1,55 @@
+{% extends 'base_generic.html' %}
+
+{% block content %}
+    <h1>Каталог книг</h1>
+    <form method="get">
+        <input type="text" name="q" value="{{ query }}" placeholder="Поиск по названию, категории...">
+        <button type="submit">Искать</button>
+    </form>
+    <table class="table">
+        <thead>
+        <tr>
+            <th><a href="?sort=title{% if request.GET.sort == 'title' %}_desc{% endif %}">Название</a></th>
+            <th><a href="?sort=author{% if request.GET.sort == 'author' %}_desc{% endif %}">Автор</a></th>
+            <th><a href="?sort=category__name{% if request.GET.sort == 'category__name' %}_desc{% endif %}">Категория</a></th>
+            <th><a href="?sort=date_added{% if request.GET.sort == 'date_added' %}_desc{% endif %}">Дата добавления</a></th>
+            <th><a href="?sort=date_updated{% if request.GET.sort == 'date_updated' %}_desc{% endif %}">Дата последнего обновления</a></th>
+            <th>Действия</th>
+        </tr>
+        </thead>
+        <tbody>
+        {% for book in page_obj %}
+            <tr>
+                <td>{{ book.title }}</td>
+                <td>{{ book.author }}</td>
+                <td>{{ book.category.name }}</td>
+                <td>{{ book.date_added }}</td>
+                <td>{{ book.date_updated }}</td>
+                <td>
+                    <a href="{% url 'edit_book' book.pk %}">Редактировать</a> |
+                    <a href="{% url 'delete_book' book.pk %}" onclick="return confirm('Are you sure?')">Удалить</a>
+                </td>
+            </tr>
+        {% endfor %}
+        </tbody>
+    </table>
+    <a href="{% url 'add_book' %}">Add Book</a>
+    <a href="{% url 'category_list' %}">List Categories</a>
+    <div class="pagination">
+    <span class="step-links">
+        {% if page_obj.has_previous %}
+            <a href="?page=1&sort={{ sort_by }}&q={{ query }}">&laquo; первая</a>
+            <a href="?page={{ page_obj.previous_page_number }}&sort={{ sort_by }}&q={{ query }}">предыдущая</a>
+        {% endif %}
+
+        <span class="current">
+            Страница {{ page_obj.number }} из {{ page_obj.paginator.num_pages }}.
+        </span>
+
+        {% if page_obj.has_next %}
+            <a href="?page={{ page_obj.next_page_number }}&sort={{ sort_by }}&q={{ query }}">следующая</a>
+            <a href="?page={{ page_obj.paginator.num_pages }}&sort={{ sort_by }}&q={{ query }}">последняя &raquo;</a>
+        {% endif %}
+    </span>
+    </div>
+{% endblock %}
