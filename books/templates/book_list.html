@@ -9,11 +9,66 @@
     <table class="table">
         <thead>
         <tr>
-            <th><a href="?sort=title{% if request.GET.sort == 'title' %}_desc{% endif %}">Название</a></th>
-            <th><a href="?sort=author{% if request.GET.sort == 'author' %}_desc{% endif %}">Автор</a></th>
-            <th><a href="?sort=category__name{% if request.GET.sort == 'category__name' %}_desc{% endif %}">Категория</a></th>
-            <th><a href="?sort=date_added{% if request.GET.sort == 'date_added' %}_desc{% endif %}">Дата добавления</a></th>
-            <th><a href="?sort=date_updated{% if request.GET.sort == 'date_updated' %}_desc{% endif %}">Дата последнего обновления</a></th>
+            <th>
+                <a href="?sort=title&direction={% if request.GET.sort == 'title' and request.GET.direction == 'asc' %}desc{% else %}asc{% endif %}">
+                    Название
+                    {% if request.GET.sort == 'title' %}
+                        {% if request.GET.direction == 'asc' %}
+                            ↑
+                        {% else %}
+                            ↓
+                        {% endif %}
+                    {% endif %}
+                </a>
+            </th>
+            <th>
+                <a href="?sort=author&direction={% if request.GET.sort == 'author' and request.GET.direction == 'asc' %}desc{% else %}asc{% endif %}">
+                    Автор
+                    {% if request.GET.sort == 'author' %}
+                        {% if request.GET.direction == 'asc' %}
+                            ↑
+                        {% else %}
+                            ↓
+                        {% endif %}
+                    {% endif %}
+                </a>
+            </th>
+            <th>
+                <a href="?sort=category__name&direction={% if request.GET.sort == 'category__name' and request.GET.direction == 'asc' %}desc{% else %}asc{% endif %}">
+                    Категория
+                    {% if request.GET.sort == 'category__name' %}
+                        {% if request.GET.direction == 'asc' %}
+                            ↑
+                        {% else %}
+                            ↓
+                        {% endif %}
+                    {% endif %}
+                </a>
+            </th>
+            <th>
+                <a href="?sort=date_added&direction={% if request.GET.sort == 'date_added' and request.GET.direction == 'asc' %}desc{% else %}asc{% endif %}">
+                    Дата добавления
+                    {% if request.GET.sort == 'date_added' %}
+                        {% if request.GET.direction == 'asc' %}
+                            ↑
+                        {% else %}
+                            ↓
+                        {% endif %}
+                    {% endif %}
+                </a>
+            </th>
+            <th>
+                <a href="?sort=date_updated&direction={% if request.GET.sort == 'date_updated' and request.GET.direction == 'asc' %}desc{% else %}asc{% endif %}">
+                    Дата последнего обновления
+                    {% if request.GET.sort == 'date_updated' %}
+                        {% if request.GET.direction == 'asc' %}
+                            ↑
+                        {% else %}
+                            ↓
+                        {% endif %}
+                    {% endif %}
+                </a>
+            </th>
             <th>Действия</th>
         </tr>
         </thead>
