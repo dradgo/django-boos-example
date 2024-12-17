@@ -1,0 +1,7 @@
+{% extends 'base_generic.html' %}
+
+{% block content %}
+    <h1>{% if form.instance.pk %}Редактировать категорию{% else %}Добавить новую категорию{% endif %}</h1>
+    {% include 'form.html' %}
+
+{% endblock %}
